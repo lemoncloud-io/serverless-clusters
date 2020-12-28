@@ -1,0 +1,46 @@
+#-----------------------------------
+# Lemon Basic Environment Variables.
+#-----------------------------------
+# default
+default_env: &default_env
+  LS: 0                   # log silence.
+  LC: 1                   # line-coloring
+  TS: 1                   # time-stamp in line
+  NAME: 'lemon'           # profile name.
+  # use common backbone server (local)
+  BACKBONE_API:  ''       # NO USE BACKBONE (OR USE 'http://localhost:8081' w/ tunneling)
+  ES6_ENDPOINT: 'https://localhost:8443'
+  DEFAULT_CLUSTER: lemon  # default cluster identity.
+  DEFAULT_STEREO: none    # default stereo in cluster.
+
+#-----------------------------------
+# test configuration.
+test:
+  <<: *default_env
+  STAGE: 'test'
+
+#-----------------------------------
+# local development configuration.
+local:
+  <<: *default_env
+  STAGE: 'local'
+  MY_DYNAMO_TABLE: ClustersTest
+  REPORT_ERROR_ARN: arn:aws:sns:ap-northeast-2:085403634746:lemon-hello-sns
+  MY_SNS_ENDPOINT: 'arn:aws:sns:ap-northeast-2:085403634746:lemon-clusters-sns-dev'
+  MY_SQS_ENDPOINT: 'https://sqs.ap-northeast-2.amazonaws.com/085403634746/lemon-clusters-sqs0dev'
+
+#-----------------------------------
+# development server
+dev:
+  <<: *default_env
+  STAGE: 'develop'
+  ES6_ENDPOINT: 'https://vpc-lemon-es6-jsqnqadjy5ypxf2hrpkpp3uvre.ap-northeast-2.es.amazonaws.com'
+  AUTH_LEMON_PASS: lemon  # default passcode for cluster `lemon`.
+
+#-----------------------------------
+# production with AWS deploy
+prod:
+  <<: *default_env
+  STAGE: 'production'
+  TS: 0
+  ES6_ENDPOINT: 'https://vpc-lemon-es6-jsqnqadjy5ypxf2hrpkpp3uvre.ap-northeast-2.es.amazonaws.com'

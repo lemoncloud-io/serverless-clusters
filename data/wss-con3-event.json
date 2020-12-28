@@ -1,0 +1,76 @@
+{
+    "!": "new WebSocket('wss://3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com/dev?id=1123', ['agent', 'lemon'] )",
+    "event": {
+        "headers": {
+            "Accept-Encoding": "gzip, deflate, br",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Cache-Control": "no-cache",
+            "Host": "3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com",
+            "Origin": "chrome-extension://pfdhoblngboilpfeibdedpjgfnlcodoo",
+            "Pragma": "no-cache",
+            "Sec-WebSocket-Extensions": "permessage-deflate; client_max_window_bits",
+            "Sec-WebSocket-Key": "lCUkV9beIZodI5miEkfrvQ==",
+            "Sec-WebSocket-Version": "13",
+            "Sec-WebSocket-Protocol": "agent, lemon",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.361.1.1.1",
+            "X-Amzn-Trace-Id": "Root=1-5fc09d2d-2cf61fc86e0ccabd5d4dcafc",
+            "X-Forwarded-For": "1.1.1.1",
+            "X-Forwarded-Port": "443",
+            "X-Forwarded-Proto": "https"
+        },
+        "multiValueHeaders": {
+            "Accept-Encoding": ["gzip, deflate, br"],
+            "Accept-Language": ["en-US,en;q=0.9"],
+            "Cache-Control": ["no-cache"],
+            "Host": ["3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com"],
+            "Origin": ["chrome-extension://pfdhoblngboilpfeibdedpjgfnlcodoo"],
+            "Pragma": ["no-cache"],
+            "Sec-WebSocket-Extensions": ["permessage-deflate; client_max_window_bits"],
+            "Sec-WebSocket-Key": ["lCUkV9beIZodI5miEkfrvQ=="],
+            "Sec-WebSocket-Version": ["13"],
+            "User-Agent": ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.361.1.1.1"],
+            "X-Amzn-Trace-Id": ["Root=1-5fc09d2d-2cf61fc86e0ccabd5d4dcafc"],
+            "X-Forwarded-For": ["1.1.1.1"],
+            "X-Forwarded-Port": ["443"],
+            "X-Forwarded-Proto": ["https"]
+        },
+        "queryStringParameters": {
+            "id": "1123"
+        },
+        "multiValueQueryStringParameters": {
+            "id": ["1123"]
+        },
+        "requestContext": {
+            "routeKey": "$connect",
+            "disconnectStatusCode": null,
+            "messageId": null,
+            "eventType": "CONNECT",
+            "extendedRequestId": "Wp1_IFsLIE0FjQw=",
+            "requestTime": "27/Nov/2020:06:31:09 +0000",
+            "messageDirection": "IN",
+            "disconnectReason": null,
+            "stage": "dev",
+            "connectedAt": 1606458669538,
+            "requestTimeEpoch": 1606458669538,
+            "identity": {
+                "cognitoIdentityPoolId": null,
+                "cognitoIdentityId": null,
+                "principalOrgId": null,
+                "cognitoAuthenticationType": null,
+                "userArn": null,
+                "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.361.1.1.1",
+                "accountId": null,
+                "caller": null,
+                "sourceIp": "1.1.1.1",
+                "accessKey": null,
+                "cognitoAuthenticationProvider": null,
+                "user": null
+            },
+            "requestId": "Wp1_IFsLIE0FjQw=",
+            "domainName": "3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com",
+            "connectionId": "Wp1_IfNQIE0CJ0Q=",
+            "apiId": "3sl8rd01c3"
+        },
+        "isBase64Encoded": false
+    }
+}

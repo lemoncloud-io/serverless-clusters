@@ -1,0 +1,48 @@
+{
+    "$": {
+        "callbackWaitsForEmptyEventLoop": false,
+        "functionVersion": "$LATEST",
+        "functionName": "lemon-clusters-api-dev-backend",
+        "memoryLimitInMB": "512",
+        "logGroupName": "/aws/lambda/lemon-clusters-api-dev-backend",
+        "logStreamName": "2020/11/25/[$LATEST]708b6b907b3d4587a48de66661546833",
+        "invokedFunctionArn": "arn:aws:lambda:ap-northeast-2:000000000000:function:lemon-clusters-api-dev-backend",
+        "awsRequestId": "2821536b-4b63-40f3-8450-4dcf4acb2420"
+    },
+    "context": {},
+    "event": {
+        "Records": [{
+            "eventID": "6b6d4a00dac5835c8b5c08b58216d276",
+            "eventName": "INSERT",
+            "eventVersion": "1.1",
+            "eventSource": "aws:dynamodb",
+            "awsRegion": "ap-northeast-2",
+            "dynamodb": {
+                "ApproximateCreationDateTime": 1606322351,
+                "Keys": {
+                    "_id": {
+                        "S": "NULL"
+                    }
+                },
+                "NewImage": {
+                    "meta": {
+                        "NULL": true
+                    },
+                    "count": {
+                        "N": "1"
+                    },
+                    "name": {
+                        "S": "null"
+                    },
+                    "_id": {
+                        "S": "NULL"
+                    }
+                },
+                "SequenceNumber": "100000000021220677106",
+                "SizeBytes": 34,
+                "StreamViewType": "NEW_AND_OLD_IMAGES"
+            },
+            "eventSourceARN": "arn:aws:dynamodb:ap-northeast-2:000000000000:table/ClustersTest/stream/2020-11-25T15:46:48.784"
+        }]
+    }
+}

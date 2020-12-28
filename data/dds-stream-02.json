@@ -1,0 +1,62 @@
+{
+    "$": {
+        "callbackWaitsForEmptyEventLoop": false,
+        "functionVersion": "$LATEST",
+        "functionName": "lemon-clusters-api-dev-backend",
+        "memoryLimitInMB": "512",
+        "logGroupName": "/aws/lambda/lemon-clusters-api-dev-backend",
+        "logStreamName": "2020/11/25/[$LATEST]708b6b907b3d4587a48de66661546833",
+        "invokedFunctionArn": "arn:aws:lambda:ap-northeast-2:000000000000:function:lemon-clusters-api-dev-backend",
+        "awsRequestId": "a158aa35-a701-4801-8a7d-10b5da78f45c"
+    },
+    "context": {},
+    "event": {
+        "Records": [{
+            "eventID": "88ff6d1346ed0d4b83f66f9dc07aebfa",
+            "eventName": "MODIFY",
+            "eventVersion": "1.1",
+            "eventSource": "aws:dynamodb",
+            "awsRegion": "ap-northeast-2",
+            "dynamodb": {
+                "ApproximateCreationDateTime": 1606322651,
+                "Keys": {
+                    "_id": {
+                        "S": "NULL"
+                    }
+                },
+                "NewImage": {
+                    "meta": {
+                        "NULL": true
+                    },
+                    "count": {
+                        "N": "2"
+                    },
+                    "name": {
+                        "S": "null"
+                    },
+                    "_id": {
+                        "S": "NULL"
+                    }
+                },
+                "OldImage": {
+                    "meta": {
+                        "NULL": true
+                    },
+                    "count": {
+                        "N": "1"
+                    },
+                    "name": {
+                        "S": "null"
+                    },
+                    "_id": {
+                        "S": "NULL"
+                    }
+                },
+                "SequenceNumber": "200000000021220834814",
+                "SizeBytes": 61,
+                "StreamViewType": "NEW_AND_OLD_IMAGES"
+            },
+            "eventSourceARN": "arn:aws:dynamodb:ap-northeast-2:000000000000:table/ClustersTest/stream/2020-11-25T15:46:48.784"
+        }]
+    }
+}

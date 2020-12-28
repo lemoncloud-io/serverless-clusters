@@ -1,0 +1,69 @@
+{
+    "!": "wscat -c wss://3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com/dev",
+    "$": {
+        "callbackWaitsForEmptyEventLoop": false,
+        "functionVersion": "$LATEST",
+        "functionName": "lemon-clusters-api-dev-lambda",
+        "memoryLimitInMB": "512",
+        "logGroupName": "/aws/lambda/lemon-clusters-api-dev-lambda",
+        "logStreamName": "2020/11/25/[$LATEST]4872e48f8c3f4b05a6081db24fc2e1db",
+        "invokedFunctionArn": "arn:aws:lambda:ap-northeast-2:000000000000:function:lemon-clusters-api-dev-lambda",
+        "awsRequestId": "73aa3df9-052d-45f0-b29f-f090b2f74260"
+    },
+    "context": {},
+    "event": {
+        "headers": {
+            "Host": "3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com",
+            "Sec-WebSocket-Extensions": "permessage-deflate; client_max_window_bits",
+            "Sec-WebSocket-Key": "4/yf6MLlVdbeA0hWGm+39g==",
+            "Sec-WebSocket-Version": "13",
+            "X-Amzn-Trace-Id": "Root=1-5fbe8259-167edc472c31720319a22e0f",
+            "X-Forwarded-For": "1.1.1.1",
+            "X-Forwarded-Port": "443",
+            "X-Forwarded-Proto": "https"
+        },
+        "multiValueHeaders": {
+            "Host": ["3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com"],
+            "Sec-WebSocket-Extensions": ["permessage-deflate; client_max_window_bits"],
+            "Sec-WebSocket-Key": ["4/yf6MLlVdbeA0hWGm+39g=="],
+            "Sec-WebSocket-Version": ["13"],
+            "X-Amzn-Trace-Id": ["Root=1-5fbe8259-167edc472c31720319a22e0f"],
+            "X-Forwarded-For": ["1.1.1.1"],
+            "X-Forwarded-Port": ["443"],
+            "X-Forwarded-Proto": ["https"]
+        },
+        "requestContext": {
+            "routeKey": "$connect",
+            "disconnectStatusCode": null,
+            "messageId": null,
+            "eventType": "CONNECT",
+            "extendedRequestId": "WklOAHKiIE0FjQw=",
+            "requestTime": "25/Nov/2020:16:12:09 +0000",
+            "messageDirection": "IN",
+            "disconnectReason": null,
+            "stage": "dev",
+            "connectedAt": 1606320729577,
+            "requestTimeEpoch": 1606320729578,
+            "identity": {
+                "cognitoIdentityPoolId": null,
+                "cognitoIdentityId": null,
+                "principalOrgId": null,
+                "cognitoAuthenticationType": null,
+                "userArn": null,
+                "userAgent": null,
+                "accountId": null,
+                "caller": null,
+                "sourceIp": "1.1.1.1",
+                "accessKey": null,
+                "cognitoAuthenticationProvider": null,
+                "user": null
+            },
+            "requestId": "WklOAHKiIE0FjQw=",
+            "domainName": "3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com",
+            "connectionId": "WklOAfLioE0CJPw=",
+            "apiId": "3sl8rd01c3"
+        },
+        "isBase64Encoded": false
+    }
+
+}

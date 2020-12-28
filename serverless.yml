@@ -1,0 +1,390 @@
+#------------------------------------------------
+# Serverless Configuration.
+#------------------------------------------------
+service: lemon-clusters-api
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+plugins:
+  - serverless-offline
+  - serverless-aws-documentation
+  - serverless-pseudo-parameters
+  - '@cruglobal/serverless-merge-config'
+
+#------------------------------------------------
+# Custome: 초기 환경 설정 로딩을 위한 핵심 설정.
+# - config.js 에서 profile별 core 정보를 얻음.
+#------------------------------------------------
+custom:
+  CORE:                                         # Core Configuration.
+    profile: ${opt:profile, 'none'}             # run option `--profile`
+    region: ${opt:region, 'ap-northeast-2'}     # run option `--region` `-r`
+    stage: ${opt:stage, 'dev'}                  # run option `--stage` `-s`
+    env: ${opt:env, './env/none.yml'}           # run option `--env`
+  CONF: ${file(./env/config.js):CONF}           # `config.js` 에서 CONF() 함수 호출하여 가져옴.
+  #------------------------------------------------
+  # serverless-offline
+  #------------------------------------------------
+  serverless-offline:
+    port: 8121
+  #------------------------------------------------
+  # Documentation
+  #   - https://github.com/9cookies/serverless-aws-documentation
+  #------------------------------------------------
+  documentation: ${file(./swagger/documentation.yml):documentation}
+  #------------------------------------------------
+  # Dynamo (TableName)
+  #------------------------------------------------
+  tableName:
+    local: ClustersTest
+    dev: ClustersTest
+    prod: Clusters
+  #------------------------------------------------
+  # SNS Registration: ${self:custom.topicName.${self:custom.CORE.stage}}
+  #------------------------------------------------
+  topicName:
+    local: lemon-clusters-sns-dev
+    dev: lemon-clusters-sns-dev
+    prod: lemon-clusters-sns
+  #------------------------------------------------
+  # SQS Registration:
+  #------------------------------------------------
+  queueName:
+    local: lemon-clusters-sqs-dev
+    dev: lemon-clusters-sqs-dev
+    prod: lemon-clusters-sqs
+
+#==============================================================
+# Provider
+#--------------------------------------------------------------
+provider:
+  name: aws
+  profile: ${opt:profile, 'none'}
+  stage: ${opt:stage, 'dev'}
+
+  # Lambda Runtime Environment
+  memorySize: 512
+  timeout: 180
+  cfLogs: true
+  runtime: ${self:custom.CONF.${self:custom.CORE.profile}.runtime, 'nodejs6.10'}
+  region: ${self:custom.CONF.${self:custom.CORE.profile}.region, self:custom.CORE.region}
+
+  # VPC Configuration for Lambda.
+  vpc:
+    securityGroupIds: ${self:custom.CONF.${self:custom.CORE.profile}.securityGroupIds}
+    subnetIds: ${self:custom.CONF.${self:custom.CORE.profile}.subnetIds}
+
+  # Lambda function's IAM Role here
+  iamRoleStatements:
+    #NOTE! - remove할때 lambda ENI Interface를 제거하지 못해서 블럭당하고 있을때, EC2 콘솔에서 강제 지우기 하면 됨!.. (VPC 안쓰면 관계 없음!)
+    - Effect: Allow
+      Action:
+        - cloudwatch:PutMetricData
+        - lambda:InvokeFunction
+        - ec2:CreateNetworkInterface
+        - ec2:DescribeNetworkInterfaces
+        - ec2:AttachNetworkInterface
+        - ec2:DescribeNetworkInterfaces
+        - ec2:DeleteNetworkInterface
+        - ec2:DetachNetworkInterface
+        - ec2:ModifyNetworkInterfaceAttribute
+        - ec2:ResetNetworkInterfaceAttribute
+      Resource: "*"
+    # KMS
+    - Effect: Allow
+      Action:
+        - kms:Decrypt
+        - kms:Encrypt
+      Resource: "arn:aws:kms:${self:provider.region}:*:key/${self:custom.kmsName.${self:custom.CORE.stage}, ''}"
+    # Lambda + SNS + SQS
+    - Effect: "Allow"
+      Action:
+        - lambda:InvokeFunction
+        - sns:GetEndpointAttributes
+        - sns:Publish
+        - sqs:SendMessage
+      Resource: "*"
+    # SQS
+    - Effect: "Allow"
+      Action:
+        - sqs:DeleteMessage
+        - sqs:ReceiveMessage
+        - sqs:GetQueueAttributes
+      Resource: "arn:aws:sqs:${opt:region, self:provider.region}:*:${self:custom.queueName.${self:custom.CORE.stage}}"
+    # DynamoDB (ModelTable)
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:GetRecords
+        - dynamodb:GetShardIterator
+        - dynamodb:DescribeTable
+        - dynamodb:DescribeStream
+        - dynamodb:ListStreams
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:custom.tableName.${self:custom.CORE.stage}}"
+    # [WSS] send message vis web-socket.
+    - Effect: Allow
+      Action:
+        - "execute-api:Invoke"
+        - "execute-api:ManageConnections"
+      Resource:
+        - "arn:aws:execute-api:*:*:**/@connections/*"
+
+  # [WSS] custom routes are selected by the value of the action property in the body
+  websocketApiRouteSelectionExpression: $request.body.action
+
+  # -------------------------------------------------------
+  # Environment variables
+  # `$ npm install --save-dev @cruglobal/serverless-merge-config`
+  # -------------------------------------------------------
+  environment:
+    DEFAULT_REGION: '${self:provider.region}'
+    REPORT_ERROR_ARN: 'arn:aws:sns:${self:provider.region}:#{AWS::AccountId}:lemon-hello-sns'
+    MY_DYNAMO_TABLE: '${self:custom.tableName.${self:custom.CORE.stage}}'
+    MY_SQS_ENDPOINT: 'https://sqs.${self:provider.region}.amazonaws.com/#{AWS::AccountId}/${self:custom.queueName.${self:custom.CORE.stage}}' # see `sqs-service`
+    MY_SNS_ENDPOINT: 'arn:aws:sns:${self:provider.region}:#{AWS::AccountId}:${self:custom.topicName.${self:custom.CORE.stage}}'               # see `sns-service`
+    $<<: ${file(./env/${self:custom.CONF.${self:custom.CORE.profile}.env}):${self:custom.CORE.stage}}
+
+
+#==============================================================
+# Functions
+#--------------------------------------------------------------
+functions:
+  #INFO - use seperated function for so many dynamo-stream.
+  backend:
+    handler: handler.lambda     # use core `lambda-handler`.
+    timeout: 300                # max timeout. (= 5 min)
+    events:
+      # -------------------------------------------------------
+      # Shared DynamoStream Service.
+      - stream:
+          type: dynamodb
+          batchSize: 1
+          startingPosition: LATEST
+          arn:
+            Fn::GetAtt:
+              - MyTable
+              - StreamArn
+  #WARN - must be `lambda` to support `lemon-protocol`.
+  lambda:
+    handler: handler.lambda     # use core `lambda-handler`.
+    timeout: 300                # max timeout. (= 5 min)
+    events:
+      # -------------------------------------------------------
+      # Shared SNS Service.
+      - sns: 'arn:aws:sns:${self:provider.region}:#{AWS::AccountId}:${self:custom.topicName.${self:custom.CORE.stage}}'
+      # -------------------------------------------------------
+      # Shared SQS Service.
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - MyQueue
+              - Arn
+          # the maximum number of SQS messages of AWS to send on a single trigger. (default: 10)
+          batchSize: 1
+      # -------------------------------------------------------
+      # SCHEDULE: CRON (5MIN)
+      - schedule:
+          name: lemon-clusters-${self:custom.CORE.stage}-5min
+          description: 'run every 5 minute to trigger batch'
+          rate: 'cron(0/5 * * * ? *)'
+          enabled: true
+          input:
+            cron:
+              name: 5MIN
+              stage: ${self:custom.CORE.stage}
+      # -------------------------------------------------------
+      # WSS: WEB-SOCKET
+      - websocket:
+          route: $connect
+      - websocket:
+          route: $disconnect
+      - websocket:
+          route: $default
+          # authorizer: auth
+          # authorizer:
+          #   name: auth
+          #   identitySource:
+          #     - 'route.request.header.Auth'
+          #     - 'route.request.querystring.Auth'
+      - websocket:
+          route: echo             # sample route by routeKey. echo request.
+      # -------------------------------------------------------
+      # REST API : /
+      - http:
+          path: /
+          method: get
+          cors: true
+          documentation:
+            summary: "show service name and version"
+      # -------------------------------------------------------
+      # REST API : /hello
+      - http:
+          path: /hello
+          method: get
+          cors: true
+          documentation:
+            summary: "search hello"
+      - http:
+          path: /hello/{id}
+          method: get
+          cors: true
+          documentation:
+            summary: "read hello"
+      - http:
+          path: /hello/{id}/{cmd}
+          method: get
+          cors: true
+          documentation:
+            summary: "run action per hello"
+      # -------------------------------------------------------
+      # REST API : `clusters`
+      # WARN - be ware of production deployment (public open).
+      - http:
+          path: /clusters/{id}/{cmd}
+          method: get
+          cors: true
+          documentation:
+            summary: "for management purpose."
+      # -------------------------------------------------------
+      # REST API : General Controller.
+      - http:
+          path: /{type}
+          method: get
+          cors: true
+          authorizer: aws_iam
+          documentation:
+            summary: |
+              검색하여 목록을 가져온다. 검색항목은 QueryString으로 지정할 수 있음.
+      - http:
+          path: /{type}/{id}
+          method: get
+          cors: true
+          authorizer: aws_iam
+          documentation:
+            summary: |
+              해당 항목의 상세 내용을 가져온다. 만일 없을 경우 404 에러 발생.
+      - http:
+          path: /{type}/{id}/{cmd}
+          method: get
+          cors: true
+          authorizer: aws_iam
+          documentation:
+            summary: |
+              추가적인 :cmd 를 수행한다.
+      - http:
+          path: /{type}/{id}
+          method: put
+          cors: true
+          authorizer: aws_iam
+          documentation:
+            summary: |
+              특정한 필드만 업데이트 가능하며, incremental 업데이트 기능 가능함.
+      - http:
+          path: /{type}/{id}/{cmd}
+          method: put
+          cors: true
+          authorizer: aws_iam
+          documentation:
+            summary: |
+              특정한 필드만 업데이트 가능하며, incremental 업데이트 기능 가능함.
+      - http:
+          path: /{type}/{id}
+          method: post
+          cors: true
+          authorizer: aws_iam
+          documentation:
+            summary: |
+              :id 항목에 신규 데이터를 생성하거나, 기존 데이터를 업데이트한다.
+      - http:
+          path: /{type}/{id}/{cmd}
+          method: post
+          cors: true
+          authorizer: aws_iam
+          documentation:
+            summary: |
+              :cmd 추가적인 command 를 수행할 수 있다.
+      - http:
+          path: /{type}/{id}
+          method: delete
+          cors: true
+          authorizer: aws_iam
+          documentation:
+            summary: |
+              :id 노드를 삭제 처리함. (단, prepared/created 상태 노드만)
+      - http:
+          path: /{type}/{id}/{cmd}
+          method: delete
+          cors: true
+          authorizer: aws_iam
+          documentation:
+            summary: |
+              :id 노드를 삭제 처리함. (단, prepared/created 상태 노드만)
+
+#--------------------------------------------------------------
+# ! INCLUDE ONLY DISTRIBUTIONS !
+#--------------------------------------------------------------
+package:
+  exclude:
+    - ./**
+    - '!node_modules/**'
+  include:
+    - handler.js
+    - package.json
+    - dist/**
+    - data/**
+  excludeDevDependencies: true
+
+
+#==============================================================
+# Resources
+# ## 리소스 생성.
+#   - 리소스를 deploy 시점에 생성할 수 있다
+#   - 주위! 테스트 목적으로 자동 생성하도록 함.
+#   - 운영시, 이 항목은 안쓰일듯.
+#--------------------------------------------------------------
+resources:
+  # 리소스 지정.
+  Resources:
+    # -------------------------------
+    # This SNS Topic
+    # -------------------------------
+    MyTopic:
+      Type: 'AWS::SNS::Topic'
+      Properties:
+        TopicName: '${self:custom.topicName.${self:custom.CORE.stage}}'
+    # -------------------------------
+    # SQS Queue
+    # -------------------------------
+    MyQueue:
+      Type: 'AWS::SQS::Queue'
+      Properties:
+        QueueName: '${self:custom.queueName.${self:custom.CORE.stage}}'
+        MessageRetentionPeriod: 1800      # 30 mins
+        VisibilityTimeout: 300            # 5 mins
+        MaximumMessageSize: 4096          # 4 Kb
+        DelaySeconds: 3                   # 3 seconds
+        ReceiveMessageWaitTimeSeconds: 20 # 20 seconds
+    # -------------------------------
+    # Dynamo Table
+    # -------------------------------
+    MyTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        TableName: '${self:custom.tableName.${self:custom.CORE.stage}}'
+        AttributeDefinitions:
+          - AttributeName: '_id'
+            AttributeType: S
+        KeySchema:
+          - AttributeName: '_id'
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        StreamSpecification:
+          StreamViewType: "NEW_AND_OLD_IMAGES"

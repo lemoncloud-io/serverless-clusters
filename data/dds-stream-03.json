@@ -1,0 +1,270 @@
+{
+    "!": "dynamo-stream에서 업데이트시 발생되는 이벤트 내용 (stat 업데이트)",
+    "$": {
+        "callbackWaitsForEmptyEventLoop": false,
+        "functionVersion": "$LATEST",
+        "functionName": "lemon-clusters-api-dev-backend",
+        "memoryLimitInMB": "512",
+        "logGroupName": "/aws/lambda/lemon-clusters-api-dev-backend",
+        "logStreamName": "2020/12/03/[$LATEST]2d7f6046ffc24ec68f9a698466b7b199",
+        "invokedFunctionArn": "arn:aws:lambda:ap-northeast-2:000000000000:function:lemon-clusters-api-dev-backend",
+        "awsRequestId": "b6a08e2b-9924-4364-a86f-1fa38cf448c9"
+    },
+    "context": {},
+    "event": {
+        "Records": [{
+                "eventID": "d36b2a49f0b2f8dc152e0edbb26f9cc9",
+                "eventName": "MODIFY",
+                "eventVersion": "1.1",
+                "eventSource": "aws:dynamodb",
+                "awsRegion": "ap-northeast-2",
+                "dynamodb": {
+                    "ApproximateCreationDateTime": 1606978573,
+                    "Keys": {
+                        "_id": {
+                            "S": "TT:cluster:7fda1d59-a88f-47d5-8664-b9d1a748d4f8"
+                        }
+                    },
+                    "NewImage": {
+                        "stat": {
+                            "M": {
+                                "msg": {
+                                    "NULL": true
+                                },
+                                "cpu": {
+                                    "N": "10"
+                                },
+                                "state": {
+                                    "S": "ok"
+                                }
+                            }
+                        },
+                        "last": {
+                            "N": "0"
+                        },
+                        "ns": {
+                            "S": "TT"
+                        },
+                        "type": {
+                            "S": "cluster"
+                        },
+                        "connected": {
+                            "N": "1"
+                        },
+                        "createdAt": {
+                            "N": "1606978569258"
+                        },
+                        "deletedAt": {
+                            "N": "0"
+                        },
+                        "stage": {
+                            "S": "dev"
+                        },
+                        "domain": {
+                            "S": "3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com"
+                        },
+                        "stereo": {
+                            "S": "agent"
+                        },
+                        "connectionId": {
+                            "S": "W9rRccSAoE0Ab7A="
+                        },
+                        "_id": {
+                            "S": "TT:cluster:7fda1d59-a88f-47d5-8664-b9d1a748d4f8"
+                        },
+                        "id": {
+                            "S": "7fda1d59-a88f-47d5-8664-b9d1a748d4f8"
+                        },
+                        "idx": {
+                            "N": "1000020"
+                        },
+                        "updatedAt": {
+                            "N": "1606978573530"
+                        }
+                    },
+                    "OldImage": {
+                        "last": {
+                            "N": "0"
+                        },
+                        "ns": {
+                            "S": "TT"
+                        },
+                        "type": {
+                            "S": "cluster"
+                        },
+                        "connected": {
+                            "N": "1"
+                        },
+                        "createdAt": {
+                            "N": "1606978569258"
+                        },
+                        "deletedAt": {
+                            "N": "0"
+                        },
+                        "stage": {
+                            "S": "dev"
+                        },
+                        "domain": {
+                            "S": "3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com"
+                        },
+                        "stereo": {
+                            "S": "agent"
+                        },
+                        "connectionId": {
+                            "S": "W9rRccSAoE0Ab7A="
+                        },
+                        "_id": {
+                            "S": "TT:cluster:7fda1d59-a88f-47d5-8664-b9d1a748d4f8"
+                        },
+                        "id": {
+                            "S": "7fda1d59-a88f-47d5-8664-b9d1a748d4f8"
+                        },
+                        "idx": {
+                            "N": "1000020"
+                        },
+                        "updatedAt": {
+                            "N": "1606978569446"
+                        }
+                    },
+                    "SequenceNumber": "36347600000000013773335330",
+                    "SizeBytes": 626,
+                    "StreamViewType": "NEW_AND_OLD_IMAGES"
+                },
+                "eventSourceARN": "arn:aws:dynamodb:ap-northeast-2:000000000000:table/Clusters/stream/2020-11-25T15:46:48.784"
+            },
+            {
+                "eventID": "473174e2147ae6cb7b8f06d65c85f960",
+                "eventName": "MODIFY",
+                "eventVersion": "1.1",
+                "eventSource": "aws:dynamodb",
+                "awsRegion": "ap-northeast-2",
+                "dynamodb": {
+                    "ApproximateCreationDateTime": 1606978793,
+                    "Keys": {
+                        "_id": {
+                            "S": "TT:cluster:7fda1d59-a88f-47d5-8664-b9d1a748d4f8"
+                        }
+                    },
+                    "NewImage": {
+                        "stat": {
+                            "M": {
+                                "msg": {
+                                    "S": "ok"
+                                },
+                                "cpu": {
+                                    "N": "12"
+                                },
+                                "state": {
+                                    "NULL": true
+                                }
+                            }
+                        },
+                        "last": {
+                            "N": "0"
+                        },
+                        "ns": {
+                            "S": "TT"
+                        },
+                        "type": {
+                            "S": "cluster"
+                        },
+                        "connected": {
+                            "N": "1"
+                        },
+                        "createdAt": {
+                            "N": "1606978569258"
+                        },
+                        "deletedAt": {
+                            "N": "0"
+                        },
+                        "stage": {
+                            "S": "dev"
+                        },
+                        "domain": {
+                            "S": "3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com"
+                        },
+                        "stereo": {
+                            "S": "agent"
+                        },
+                        "connectionId": {
+                            "S": "W9rRccSAoE0Ab7A="
+                        },
+                        "_id": {
+                            "S": "TT:cluster:7fda1d59-a88f-47d5-8664-b9d1a748d4f8"
+                        },
+                        "id": {
+                            "S": "7fda1d59-a88f-47d5-8664-b9d1a748d4f8"
+                        },
+                        "idx": {
+                            "N": "1000020"
+                        },
+                        "updatedAt": {
+                            "N": "1606978793643"
+                        }
+                    },
+                    "OldImage": {
+                        "stat": {
+                            "M": {
+                                "msg": {
+                                    "NULL": true
+                                },
+                                "cpu": {
+                                    "N": "10"
+                                },
+                                "state": {
+                                    "S": "ok"
+                                }
+                            }
+                        },
+                        "last": {
+                            "N": "0"
+                        },
+                        "ns": {
+                            "S": "TT"
+                        },
+                        "type": {
+                            "S": "cluster"
+                        },
+                        "connected": {
+                            "N": "1"
+                        },
+                        "createdAt": {
+                            "N": "1606978569258"
+                        },
+                        "deletedAt": {
+                            "N": "0"
+                        },
+                        "stage": {
+                            "S": "dev"
+                        },
+                        "domain": {
+                            "S": "3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com"
+                        },
+                        "stereo": {
+                            "S": "agent"
+                        },
+                        "connectionId": {
+                            "S": "W9rRccSAoE0Ab7A="
+                        },
+                        "_id": {
+                            "S": "TT:cluster:7fda1d59-a88f-47d5-8664-b9d1a748d4f8"
+                        },
+                        "id": {
+                            "S": "7fda1d59-a88f-47d5-8664-b9d1a748d4f8"
+                        },
+                        "idx": {
+                            "N": "1000020"
+                        },
+                        "updatedAt": {
+                            "N": "1606978573530"
+                        }
+                    },
+                    "SequenceNumber": "36348200000000013773428390",
+                    "SizeBytes": 652,
+                    "StreamViewType": "NEW_AND_OLD_IMAGES"
+                },
+                "eventSourceARN": "arn:aws:dynamodb:ap-northeast-2:000000000000:table/Clusters/stream/2020-11-25T15:46:48.784"
+            }
+        ]
+    }
+}

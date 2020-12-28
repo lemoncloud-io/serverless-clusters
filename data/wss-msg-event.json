@@ -1,0 +1,38 @@
+{
+    "context": {},
+    "event": {
+        "requestContext": {
+            "routeKey": "$default",
+            "disconnectStatusCode": null,
+            "messageId": "WklZ4fOoIE0CJPw=",
+            "eventType": "MESSAGE",
+            "extendedRequestId": "WklZ4Fu0IE0Fpgg=",
+            "requestTime": "25/Nov/2020:16:13:25 +0000",
+            "messageDirection": "IN",
+            "disconnectReason": null,
+            "stage": "dev",
+            "connectedAt": 1606320729577,
+            "requestTimeEpoch": 1606320805572,
+            "identity": {
+                "cognitoIdentityPoolId": null,
+                "cognitoIdentityId": null,
+                "principalOrgId": null,
+                "cognitoAuthenticationType": null,
+                "userArn": null,
+                "userAgent": null,
+                "accountId": null,
+                "caller": null,
+                "sourceIp": "1.1.1.1",
+                "accessKey": null,
+                "cognitoAuthenticationProvider": null,
+                "user": null
+            },
+            "requestId": "WklZ4Fu0IE0Fpgg=",
+            "domainName": "3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com",
+            "connectionId": "WklOAfLioE0CJPw=",
+            "apiId": "3sl8rd01c3"
+        },
+        "body": "HELLO",
+        "isBase64Encoded": false
+    }
+}

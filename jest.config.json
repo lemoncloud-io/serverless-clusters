@@ -1,0 +1,18 @@
+{
+    "clearMocks": true,
+    "coverageDirectory": "coverage",
+    "collectCoverage": true,
+    "globals": {
+        "ts-jest": {
+            "compiler": "ttypescript",
+            "tsConfig": "tsconfig.json"
+        }
+    },
+    "moduleFileExtensions": ["js", "jsx", "ts", "tsx"],
+    "testEnvironment": "node",
+    "testMatch": ["**/src/**/*.spec.+(ts|tsx|js|jsx)", "**/test/**/*.+(ts|tsx|js|jsx)"],
+    "transform": {
+        "^.+\\.(ts|tsx|js|jsx)$": "ts-jest"
+    },
+    "preset": "ts-jest/presets/js-with-ts"
+}

@@ -1,0 +1,5 @@
+data:
+    - ns: TT
+      type: dummy
+      id: '1'
+      name: dummy

@@ -1,0 +1,50 @@
+{
+    "!": "일정 시간이 지나면 자동으로 연결이 끊기기도 함 - disconnected (code: 1001)",
+    "context": {},
+    "event": {
+        "headers": {
+            "Host": "3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com",
+            "x-api-key": "",
+            "X-Forwarded-For": "",
+            "x-restapi": ""
+        },
+        "multiValueHeaders": {
+            "Host": ["3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com"],
+            "x-api-key": [""],
+            "X-Forwarded-For": [""],
+            "x-restapi": [""]
+        },
+        "requestContext": {
+            "routeKey": "$disconnect",
+            "disconnectStatusCode": 1001,
+            "messageId": null,
+            "eventType": "DISCONNECT",
+            "extendedRequestId": "WkqZ9ErCoE0FsUg=",
+            "requestTime": "25/Nov/2020:16:47:34 +0000",
+            "messageDirection": "IN",
+            "disconnectReason": "Going away",
+            "stage": "dev",
+            "connectedAt": 1606322252626,
+            "requestTimeEpoch": 1606322854058,
+            "identity": {
+                "cognitoIdentityPoolId": null,
+                "cognitoIdentityId": null,
+                "principalOrgId": null,
+                "cognitoAuthenticationType": null,
+                "userArn": null,
+                "userAgent": null,
+                "accountId": null,
+                "caller": null,
+                "sourceIp": "1.1.1.1",
+                "accessKey": null,
+                "cognitoAuthenticationProvider": null,
+                "user": null
+            },
+            "requestId": "WkqZ9ErCoE0FsUg=",
+            "domainName": "3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com",
+            "connectionId": "WklOAfLioE0CJPw=",
+            "apiId": "3sl8rd01c3"
+        },
+        "isBase64Encoded": false
+    }
+}

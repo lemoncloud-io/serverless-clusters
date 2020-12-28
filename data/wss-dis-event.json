@@ -1,0 +1,49 @@
+{
+    "context": {},
+    "event": {
+        "headers": {
+            "Host": "3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com",
+            "x-api-key": "",
+            "X-Forwarded-For": "",
+            "x-restapi": ""
+        },
+        "multiValueHeaders": {
+            "Host": ["3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com"],
+            "x-api-key": [""],
+            "X-Forwarded-For": [""],
+            "x-restapi": [""]
+        },
+        "requestContext": {
+            "routeKey": "$disconnect",
+            "disconnectStatusCode": -1,
+            "messageId": null,
+            "eventType": "DISCONNECT",
+            "extendedRequestId": "WklgCECCoE0FiKA=",
+            "requestTime": "25/Nov/2020:16:14:04 +0000",
+            "messageDirection": "IN",
+            "disconnectReason": "",
+            "stage": "dev",
+            "connectedAt": 1606320729577,
+            "requestTimeEpoch": 1606320844905,
+            "identity": {
+                "cognitoIdentityPoolId": null,
+                "cognitoIdentityId": null,
+                "principalOrgId": null,
+                "cognitoAuthenticationType": null,
+                "userArn": null,
+                "userAgent": null,
+                "accountId": null,
+                "caller": null,
+                "sourceIp": "1.1.1.1",
+                "accessKey": null,
+                "cognitoAuthenticationProvider": null,
+                "user": null
+            },
+            "requestId": "WklgCECCoE0FiKA=",
+            "domainName": "3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com",
+            "connectionId": "WklOAfLioE0CJPw=",
+            "apiId": "3sl8rd01c3"
+        },
+        "isBase64Encoded": false
+    }
+}

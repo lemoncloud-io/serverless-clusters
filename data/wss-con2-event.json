@@ -1,0 +1,78 @@
+{
+    "!": "wscat -c wss://3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com/dev?id=1123 --auth none:lemon --header x-auth:1234",
+    "$": {
+        "callbackWaitsForEmptyEventLoop": false,
+        "functionVersion": "$LATEST",
+        "functionName": "lemon-clusters-api-dev-lambda",
+        "memoryLimitInMB": "512",
+        "logGroupName": "/aws/lambda/lemon-clusters-api-dev-lambda",
+        "logStreamName": "2020/11/25/[$LATEST]4872e48f8c3f4b05a6081db24fc2e1db",
+        "invokedFunctionArn": "arn:aws:lambda:ap-northeast-2:000000000000:function:lemon-clusters-api-dev-lambda",
+        "awsRequestId": "a35fe56e-537e-4f8d-abd5-53878732ac61"
+    },
+    "context": {},
+    "event": {
+        "headers": {
+            "Authorization": "Basic aGVsbzpsZW1vbg==",
+            "Host": "3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com",
+            "Sec-WebSocket-Extensions": "permessage-deflate; client_max_window_bits",
+            "Sec-WebSocket-Key": "g1fR9fzS3WI1HFXEaq4Dmw==",
+            "Sec-WebSocket-Version": "13",
+            "X-Amzn-Trace-Id": "Root=1-5fbe8ecc-7817a3630515359c75235d1b",
+            "x-auth": "1234",
+            "X-Forwarded-For": "1.1.1.1",
+            "X-Forwarded-Port": "443",
+            "X-Forwarded-Proto": "https"
+        },
+        "multiValueHeaders": {
+            "Authorization": ["Basic aGVsbzpsZW1vbg=="],
+            "Host": ["3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com"],
+            "Sec-WebSocket-Extensions": ["permessage-deflate; client_max_window_bits"],
+            "Sec-WebSocket-Key": ["g1fR9fzS3WI1HFXEaq4Dmw=="],
+            "Sec-WebSocket-Version": ["13"],
+            "X-Amzn-Trace-Id": ["Root=1-5fbe8ecc-7817a3630515359c75235d1b"],
+            "x-auth": ["1234"],
+            "X-Forwarded-For": ["1.1.1.1"],
+            "X-Forwarded-Port": ["443"],
+            "X-Forwarded-Proto": ["https"]
+        },
+        "queryStringParameters": {
+            "id": "1123"
+        },
+        "multiValueQueryStringParameters": {
+            "id": ["1123"]
+        },
+        "requestContext": {
+            "routeKey": "$connect",
+            "disconnectStatusCode": null,
+            "messageId": null,
+            "eventType": "CONNECT",
+            "extendedRequestId": "Wks_-HahoE0Fl2Q=",
+            "requestTime": "25/Nov/2020:17:05:16 +0000",
+            "messageDirection": "IN",
+            "disconnectReason": null,
+            "stage": "dev",
+            "connectedAt": 1606323916546,
+            "requestTimeEpoch": 1606323916546,
+            "identity": {
+                "cognitoIdentityPoolId": null,
+                "cognitoIdentityId": null,
+                "principalOrgId": null,
+                "cognitoAuthenticationType": null,
+                "userArn": null,
+                "userAgent": null,
+                "accountId": null,
+                "caller": null,
+                "sourceIp": "1.1.1.1",
+                "accessKey": null,
+                "cognitoAuthenticationProvider": null,
+                "user": null
+            },
+            "requestId": "Wks_-HahoE0Fl2Q=",
+            "domainName": "3sl8rd01c3.execute-api.ap-northeast-2.amazonaws.com",
+            "connectionId": "Wks_-eeMIE0CIjg=",
+            "apiId": "3sl8rd01c3"
+        },
+        "isBase64Encoded": false
+    }
+}
